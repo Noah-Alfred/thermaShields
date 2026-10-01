@@ -29,8 +29,19 @@
 
   /** Wrap every character in a reusable span without changing the accessible label. */
   function splitText(element) {
-    if (!element || element.dataset.splitComplete === "true") {
-      return element ? $$(".char", element) : [];
+    if (!element) return [];
+
+    /*
+     * Keep chrome words as one continuous glyph run. Splitting them makes the
+     * chrome gradient restart on every letter, which looks like duplicated text.
+     * Returning the element still lets GSAP reveal it with the other characters.
+     */
+    if (element.matches(".chrome-text, .wordmark-chrome")) {
+      return [element];
+    }
+
+    if (element.dataset.splitComplete === "true") {
+      return $$(".char", element);
     }
 
     const text = element.innerText || element.textContent;

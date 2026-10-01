@@ -176,17 +176,15 @@ button {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Split characters need their own clipping context in WebKit/Chromium. */
+/* Safe fallback if an older cached script has already split a chrome word. */
 .chrome-text .char,
 .wordmark-chrome .char {
-  background: linear-gradient(105deg, var(--chrome-1) 0%, var(--chrome-2) 32%, var(--chrome-3) 52%, var(--chrome-4) 74%, var(--chrome-2) 100%);
-  background-size: 220% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  background: none;
+  color: var(--chrome-2);
+  -webkit-text-fill-color: var(--chrome-2);
 }
 
 .glow {
